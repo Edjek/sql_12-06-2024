@@ -29,7 +29,7 @@
    RENAME TABLE ancien_nom TO nouveau_nom;
 
 # Ajouter une colonne :
-   ALTER TABLE nom_table ADD colonne type_de_donnees;
+   ALTER TABLE nom_table ADD nom_colonne type_de_donnees;
 
 # Supprimer une colonne :
    ALTER TABLE nom_table DROP COLUMN nom_colonne;
