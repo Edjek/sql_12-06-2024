@@ -5,7 +5,7 @@
 **EQUALS (=)** :
    # Exemple : `SELECT * FROM table WHERE age = 25;`
 
-**NOT EQUALS (<>, !=)** :
+**NOT EQUALS (!=, <>)** :
    # Exemple : `SELECT * FROM table WHERE couleur <> 'rouge';`
 
 **LESS THAN (<)** :
