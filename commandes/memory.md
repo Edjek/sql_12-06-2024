@@ -43,21 +43,7 @@
 -   **NOT NULL** : Assure qu'une colonne ne peut pas avoir de valeurs NULL.
 -   **CHECK** : Assure que toutes les valeurs dans une colonne satisfont une condition spécifique.
 
-### 7. **Transactions**
-
--   **BEGIN TRANSACTION** : Démarre une transaction.
--   **COMMIT** : Valide les changements effectués pendant la transaction.
--   **ROLLBACK** : Annule les changements effectués pendant la transaction.
-
-### 8. **Indexes**
-
--   Les index sont utilisés pour améliorer la performance des requêtes en facilitant l'accès rapide aux données. Ils peuvent être créés sur une ou plusieurs colonnes d'une table.
-
-### 9. **Vues (Views)**
-
--   Une vue est une table virtuelle basée sur le résultat d'une requête SQL. Elle simplifie les requêtes complexes et renforce la sécurité en limitant l'accès direct aux données sous-jacentes.
-
-### 10. **Sécurité et permissions**
+### 7. **Sécurité et permissions**
 
 -   **GRANT** : Accorde des permissions spécifiques aux utilisateurs.
 -   **REVOKE** : Révoque des permissions précédemment accordées.
