@@ -4,11 +4,9 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
 
     CREATE DATABASE bd_collection_db;
 
-
 2. Sélectionnez la base de données nouvellement créée :
 
     USE bd_collection_db;
-
 
 3. Créez la table "auteur" avec des colonnes telles que "id" (clé primaire), "nom" et "nationalite" :
 
@@ -18,14 +16,12 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
     nationalite VARCHAR(50)
     );
 
-
 4. Insérez des données dans la table "auteur" pour représenter les auteur des bandes dessinées :
 
     INSERT INTO auteur (nom, nationalite) VALUES
     ('Hergé', 'Belge'),
     ('René Goscinny', 'Français'),
     ('Albert Uderzo', 'Français');
-
 
 5. Créez la table "editeur" avec des colonnes telles que "id" (clé primaire), "nom" et "pays" :
 
@@ -34,7 +30,6 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
     nom VARCHAR(100),
     pays VARCHAR(50)
     );
-
 
 6. Insérez des données dans la table "editeur" pour représenter les éditeurs des bandes dessinées :
 
