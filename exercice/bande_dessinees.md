@@ -10,18 +10,18 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
     USE bd_collection_db;
 
 
-3. Créez la table "auteur" avec des colonnes telles que "id" (clé primaire), "name" et "nationality" :
+3. Créez la table "auteur" avec des colonnes telles que "id" (clé primaire), "nom" et "nationalite" :
 
     CREATE TABLE auteur (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    nationality VARCHAR(50)
+    nom VARCHAR(100),
+    nationalite VARCHAR(50)
     );
 
 
 4. Insérez des données dans la table "auteur" pour représenter les auteur des bandes dessinées :
 
-    INSERT INTO auteur (name, nationality) VALUES
+    INSERT INTO auteur (nom, nationalite) VALUES
     ('Hergé', 'Belge'),
     ('René Goscinny', 'Français'),
     ('Albert Uderzo', 'Français');
@@ -43,21 +43,21 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
     ('Dargaud', 'France'),
     ('Dupuis', 'Belgique');
 
-7. Créez la table "bd" avec des colonnes telles que "id" (clé primaire), "titre", "auteur_id" (clé étrangère faisant référence à la table auteur), "editeur_id" (clé étrangère faisant référence à la table editeur) et "année_parution" :
+7. Créez la table "bd" avec des colonnes telles que "id" (clé primaire), "titre", "auteur_id" (clé étrangère faisant référence à la table auteur), "editeur_id" (clé étrangère faisant référence à la table editeur) et "annee_parution" :
 
     CREATE TABLE bd (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titre VARCHAR(100),
     auteur_id INT,
     editeur_id INT,
-    année_parution INT,
+    annee_parution INT,
     FOREIGN KEY (auteur_id) REFERENCES auteur(id),
     FOREIGN KEY (editeur_id) REFERENCES editeur(id)
     );
 
 8. Insérez des données dans la table "bd" pour représenter différentes bandes dessinées avec leurs auteur et éditeurs :
 
-    INSERT INTO bd (titre, auteur_id, editeur_id, année_parution) VALUES
+    INSERT INTO bd (titre, auteur_id, editeur_id, annee_parution) VALUES
     ('Tintin au Tibet', 1, 1, 1960),
     ('Astérix le Gaulois', 2, 2, 1961),
     ('Les Aventures de Blake et Mortimer', 1, 3, 1946);
@@ -66,14 +66,14 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
 
     - Afficher toutes les bandes dessinées avec les informations complètes :
 
-        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.année_parution
+        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.annee_parution
         FROM bd
         JOIN auteur ON bd.auteur_id = auteur.id
         JOIN editeur ON bd.editeur_id = editeur.id;
 
     - Afficher les bandes dessinées publiées par un éditeur spécifique (par exemple, "Casterman") :
 
-        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.année_parution
+        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.annee_parution
         FROM bd
         JOIN auteur ON bd.auteur_id = auteur.id
         JOIN editeur ON bd.editeur_id = editeur.id
@@ -81,11 +81,11 @@ Voici un exemple d'exercice avec une base de données pour des bandes dessinées
 
     - Afficher les bandes dessinées publiées après une certaine année (par exemple, après 1960) :
 
-        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.année_parution
+        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.annee_parution
         FROM bd
         JOIN auteur ON bd.auteur_id = auteur.id
         JOIN editeur ON bd.editeur_id = editeur.id
-        WHERE bd.année_parution > 1960;
+        WHERE bd.annee_parution > 1960;
 
 Cet exercice vous permet de créer une base de données pour des bandes dessinées belges, de gérer les relations entre les tables "bd", "auteur" et "editeur", et d'effectuer des requêtes pour obtenir des informations spécifiques.
 Vous pouvez ajouter davantage de données, de tables et d'autres fonctionnalités de MySQL pour enrichir votre base de données selon vos besoins.
