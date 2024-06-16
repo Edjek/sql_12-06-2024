@@ -4,14 +4,14 @@ Créer la base de données school_db
 
 Utiliser la base de données
 
-    USE school;
+    USE school_db;
 
 Créer la table "student"
 
     CREATE TABLE student (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nom VARCHAR(50),
-        prénom VARCHAR(50),
+        prenom VARCHAR(50),
         date_naissance DATE,
         adresse VARCHAR(100),
         email VARCHAR(100)
@@ -30,17 +30,17 @@ Créer la table "note"
     CREATE TABLE note (
         id INT AUTO_INCREMENT PRIMARY KEY,
         student_id INT,
-        matière_id INT,
+        matiere_id INT,
         note FLOAT,
         FOREIGN KEY (student_id) REFERENCES student(id),
-        FOREIGN KEY (matière_id) REFERENCES subject(id)
+        FOREIGN KEY (matiere_id) REFERENCES subject(id)
     );
 
 Insérez des données dans les tables :
 
 -- Insertion des étudiants :
 
-    INSERT INTO student (nom, prénom, date_naissance, adresse, email)
+    INSERT INTO student (nom, prenom, date_naissance, adresse, email)
     VALUES
     ('Doe', 'John', '2000-01-01', '123 Main Street', 'john.doe@example.com'),
     ('Smith', 'Emma', '1999-03-15', '456 Elm Street', 'emma.smith@example.com'),
@@ -65,7 +65,7 @@ Insérez des données dans les tables :
 
 -- Insertion des notes pour chaque étudiant (exemples) :
 
-    INSERT INTO note (student_id, matière_id, note)
+    INSERT INTO note (student_id, matiere_id, note)
     VALUES
     (1, 1, 15.5),
     (1, 2, 12.0),
@@ -85,7 +85,7 @@ Voici quelques exemples de requêtes SQL avec des conditions, des limites et du 
 1.  Sélectionner tous les étudiants dont le nom est "Doe" :
 
     ```sql
-    SELECT \*
+    SELECT *
     FROM student
     WHERE nom = 'Doe';
     ```
@@ -93,7 +93,7 @@ Voici quelques exemples de requêtes SQL avec des conditions, des limites et du 
 2.  Sélectionner tous les étudiants âgés de moins de 20 ans :
 
     ```sql
-    SELECT \*
+    SELECT *
     FROM student
     WHERE date_naissance > DATE_SUB(CURDATE(), INTERVAL 20 YEAR);
     ```
@@ -101,7 +101,7 @@ Voici quelques exemples de requêtes SQL avec des conditions, des limites et du 
 3.  Sélectionner les 5 premiers étudiants dans l'ordre alphabétique des noms :
 
     ```sql
-    SELECT \*
+    SELECT *
     FROM student
     ORDER BY nom
     LIMIT 5;
@@ -110,7 +110,7 @@ Voici quelques exemples de requêtes SQL avec des conditions, des limites et du 
 4.  Sélectionner les étudiants par ordre décroissant de leur date de naissance :
 
     ```sql
-    SELECT \*
+    SELECT *
     FROM student
     ORDER BY date_naissance DESC;
     ```
@@ -118,19 +118,19 @@ Voici quelques exemples de requêtes SQL avec des conditions, des limites et du 
 5.  Sélectionner les étudiants dont l'adresse contient le mot "Street" et limiter les résultats à 3 :
 
     ```sql
-    SELECT \*
+    SELECT *
     FROM student
     WHERE adresse LIKE '%Street%'
     LIMIT 3;
     ```
 
-6.  Sélectionner les étudiants dont le nom commence par "S" et trier les résultats par prénom :
+6.  Sélectionner les étudiants dont le nom commence par "S" et trier les résultats par prenom :
 
     ```sql
-    SELECT \*
+    SELECT *
     FROM student
     WHERE nom LIKE 'S%'
-    ORDER BY prénom;
+    ORDER BY prenom;
     ```
 
 Ces exemples montrent comment appliquer des conditions, des limites et du tri dans vos requêtes SQL pour la table "student". N'hésitez pas à les ajuster en fonction de vos critères de recherche spécifiques.
@@ -142,44 +142,44 @@ Voici quelques exemples de requêtes SQL qui utilisent les fonctions MIN, MAX, C
 1. Sélectionner la note minimale, maximale et le nombre total de notes pour chaque matière :
 
     ```sql
-    SELECT matière_id, MIN(note) AS note_minimale, MAX(note) AS note_maximale, COUNT(\*) AS nombre_notes
-    FROM notes
-    GROUP BY matière_id;
+    SELECT matiere_id, MIN(note) AS note_minimale, MAX(note) AS note_maximale, COUNT(*) AS nombre_notes
+    FROM note
+    GROUP BY matiere_id;
     ```
 
 2. Sélectionner les étudiants ayant une moyenne supérieure à 15 :
 
     ```sql
-    SELECT étudiant_id, AVG(note) AS moyenne
+    SELECT student_id, AVG(note) AS moyenne
     FROM note
-    GROUP BY étudiant_id
+    GROUP BY student_id
     HAVING AVG(note) > 15;
     ```
 
 3. Sélectionner le nombre d'étudiants ayant obtenu une note supérieure à 16 dans chaque matière :
 
     ```sql
-    SELECT matière*id, COUNT(\*) AS nombre*étudiants
+    SELECT matiere_id, COUNT(*) AS nombre_etudiants
     FROM note
     WHERE note > 16
-    GROUP BY matière_id;
+    GROUP BY matiere_id;
     ```
 
 4. Sélectionner les matières ayant au moins cinq étudiants :
 
     ```sql
-    SELECT matière*id, COUNT(\*) AS nombre*étudiants
+    SELECT matiere_id, COUNT(*) AS nombre_etudiants
     FROM note
-    GROUP BY matière_id
-    HAVING COUNT(\*) >= 5;
+    GROUP BY matiere_id
+    HAVING COUNT(*) >= 5;
     ```
 
 5. Sélectionner les étudiants ayant obtenu une note maximale dans chaque matière :
 
     ```sql
-    SELECT matière_id, étudiant_id, MAX(note) AS note_maximale
+    SELECT matiere_id, student_id, MAX(note) AS note_maximale
     FROM note
-    GROUP BY matière_id;
+    GROUP BY matiere_id;
     ```
 
 Ces exemples illustrent l'utilisation des fonctions MIN, MAX, COUNT, GROUP BY et HAVING pour effectuer des calculs et filtrer les données en fonction de certaines conditions.
@@ -190,24 +190,24 @@ N'hésitez pas à les adapter en fonction de votre base de données et de vos be
 Requête qui sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10.
 
 ```sql
-SELECT nom, COUNT(_) AS nombre
+SELECT nom, COUNT(*) AS nombre
 FROM student
 WHERE date_naissance > '2000-01-01'
 GROUP BY nom
-HAVING COUNT(_) > 2
+HAVING COUNT(*) > 2
 ORDER BY nom
 LIMIT 10;
 ```
 
 ---
 
-Requête SQL qui sélectionne le nom, le prénom, le nom de la matière et la note maximale pour chaque étudiant dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom d'étudiant, filtre les groupes ayant une note maximale supérieure :
+Requête SQL qui sélectionne le nom, le prenom, le nom de la matière et la note maximale pour chaque étudiant dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom d'étudiant, filtre les groupes ayant une note maximale supérieure :
 
 ```sql
-SELECT student.nom, prénom, subject.nom, MAX(note) AS 'note maximal'
+SELECT student.nom, prenom, subject.nom, MAX(note) AS 'note maximal'
 FROM student
 JOIN note ON student.id = note.étudiant_id
-JOIN subject ON note.matière_id = subject.id
+JOIN subject ON note.matiere_id = subject.id
 WHERE student.date_naissance > '2000-01-01'
 GROUP BY student.nom
 HAVING Max(note) > 2
