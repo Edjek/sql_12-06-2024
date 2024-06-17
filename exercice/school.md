@@ -2,11 +2,12 @@ Créer la base de données school_db
 
 Utiliser la base de données
 
-Créer la table "student" avec id, nom prenom, date_naissance, adresse, email
+Créer la table "student" avec id, nom, prenom, date_naissance, adresse, email
 
 Créer la table "subject" id, nom, description
 
-Créer la table "note" avec uid note et des clés étrangères pour student_id et subject_id
+Créer la table "note" avec un
+id note et des clés étrangères pour student_id et subject_id
 
 Insérez des données dans les tables :
 
@@ -81,10 +82,8 @@ N'hésitez pas à les adapter en fonction de votre base de données et de vos be
 
 ---
 
-Cette requête sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10.
+<!-- ! ATTENTION C est aussi une requete! -->
 
-
+Cette requête sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10. 
 
 ---
-
-
