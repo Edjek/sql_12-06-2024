@@ -1,91 +1,113 @@
-Voici un exemple d'exercice avec une base de données pour des bandes dessinées belges, en incluant plusieurs tables telles que "BD", "auteur" et "editeur" :
+# Exercice avec une Base de Données pour des Bandes Dessinées Belges
 
-1. Créez une base de données :
+Dans cet exercice, nous allons créer une base de données pour gérer des bandes dessinées belges, en incluant plusieurs tables telles que "bd", "auteur" et "editeur".
 
-    CREATE DATABASE bd_collection_db;
+## Étapes à Suivre
 
+### 1. Créez une Base de Données
 
-2. Sélectionnez la base de données nouvellement créée :
+```sql
+CREATE DATABASE bd_collection_db;
+```
 
-    USE bd_collection_db;
+### 2. Sélectionnez la Base de Données Nouvellement Créée
 
+```sql
+USE bd_collection_db;
+```
 
-3. Créez la table "auteur" avec des colonnes telles que "id" (clé primaire), "name" et "nationality" :
+### 3. Créez la Table "auteur"
 
-    CREATE TABLE auteur (
+```sql
+CREATE TABLE auteur (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    nationality VARCHAR(50)
-    );
+    nom VARCHAR(100),
+    nationalite VARCHAR(50)
+);
+```
 
+### 4. Insérez des Données dans la Table "auteur"
 
-4. Insérez des données dans la table "auteur" pour représenter les auteur des bandes dessinées :
+```sql
+INSERT INTO auteur (nom, nationalite) VALUES
+('Hergé', 'Belge'),
+('René Goscinny', 'Français'),
+('Albert Uderzo', 'Français');
+```
 
-    INSERT INTO auteur (name, nationality) VALUES
-    ('Hergé', 'Belge'),
-    ('René Goscinny', 'Français'),
-    ('Albert Uderzo', 'Français');
+### 5. Créez la Table "editeur"
 
-
-5. Créez la table "editeur" avec des colonnes telles que "id" (clé primaire), "nom" et "pays" :
-
-    CREATE TABLE editeur (
+```sql
+CREATE TABLE editeur (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(100),
     pays VARCHAR(50)
-    );
+);
+```
 
+### 6. Insérez des Données dans la Table "editeur"
 
-6. Insérez des données dans la table "editeur" pour représenter les éditeurs des bandes dessinées :
+```sql
+INSERT INTO editeur (nom, pays) VALUES
+('Casterman', 'Belgique'),
+('Dargaud', 'France'),
+('Dupuis', 'Belgique');
+```
 
-    INSERT INTO editeur (nom, pays) VALUES
-    ('Casterman', 'Belgique'),
-    ('Dargaud', 'France'),
-    ('Dupuis', 'Belgique');
+### 7. Créez la Table "bd"
 
-7. Créez la table "bd" avec des colonnes telles que "id" (clé primaire), "titre", "auteur_id" (clé étrangère faisant référence à la table auteur), "editeur_id" (clé étrangère faisant référence à la table editeur) et "année_parution" :
-
-    CREATE TABLE bd (
+```sql
+CREATE TABLE bd (
     id INT PRIMARY KEY AUTO_INCREMENT,
     titre VARCHAR(100),
     auteur_id INT,
     editeur_id INT,
-    année_parution INT,
+    annee_parution INT,
     FOREIGN KEY (auteur_id) REFERENCES auteur(id),
     FOREIGN KEY (editeur_id) REFERENCES editeur(id)
-    );
+);
+```
 
-8. Insérez des données dans la table "bd" pour représenter différentes bandes dessinées avec leurs auteur et éditeurs :
+### 8. Insérez des Données dans la Table "bd"
 
-    INSERT INTO bd (titre, auteur_id, editeur_id, année_parution) VALUES
-    ('Tintin au Tibet', 1, 1, 1960),
-    ('Astérix le Gaulois', 2, 2, 1961),
-    ('Les Aventures de Blake et Mortimer', 1, 3, 1946);
+```sql
+INSERT INTO bd (titre, auteur_id, editeur_id, annee_parution) VALUES
+('Tintin au Tibet', 1, 1, 1960),
+('Astérix le Gaulois', 2, 2, 1961),
+('Les Aventures de Blake et Mortimer', 1, 3, 1946);
+```
 
-9. Effectuez des requêtes pour afficher les informations sur les bandes dessinées, les auteur et les éditeurs :
+### 9. Effectuez des Requêtes pour Afficher les Informations sur les Bandes Dessinées
 
-    - Afficher toutes les bandes dessinées avec les informations complètes :
+#### a. Afficher Toutes les Bandes Dessinées avec les Informations Complètes
 
-        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.année_parution
-        FROM bd
-        JOIN auteur ON bd.auteur_id = auteur.id
-        JOIN editeur ON bd.editeur_id = editeur.id;
+```sql
+SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.annee_parution
+FROM bd
+JOIN auteur ON bd.auteur_id = auteur.id
+JOIN editeur ON bd.editeur_id = editeur.id;
+```
 
-    - Afficher les bandes dessinées publiées par un éditeur spécifique (par exemple, "Casterman") :
+#### b. Afficher les Bandes Dessinées Publiées par un Éditeur Spécifique (par exemple, "Casterman")
 
-        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.année_parution
-        FROM bd
-        JOIN auteur ON bd.auteur_id = auteur.id
-        JOIN editeur ON bd.editeur_id = editeur.id
-        WHERE editeur.nom = 'Casterman';
+```sql
+SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.annee_parution
+FROM bd
+JOIN auteur ON bd.auteur_id = auteur.id
+JOIN editeur ON bd.editeur_id = editeur.id
+WHERE editeur.nom = 'Casterman';
+```
 
-    - Afficher les bandes dessinées publiées après une certaine année (par exemple, après 1960) :
+#### c. Afficher les Bandes Dessinées Publiées Après une Certaine Année (par exemple, après 1960)
 
-        SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.année_parution
-        FROM bd
-        JOIN auteur ON bd.auteur_id = auteur.id
-        JOIN editeur ON bd.editeur_id = editeur.id
-        WHERE bd.année_parution > 1960;
+```sql
+SELECT bd.titre, auteur.nom AS auteur, editeur.nom AS editeur, bd.annee_parution
+FROM bd
+JOIN auteur ON bd.auteur_id = auteur.id
+JOIN editeur ON bd.editeur_id = editeur.id
+WHERE bd.annee_parution > 1960;
+```
 
-Cet exercice vous permet de créer une base de données pour des bandes dessinées belges, de gérer les relations entre les tables "bd", "auteur" et "editeur", et d'effectuer des requêtes pour obtenir des informations spécifiques.
-Vous pouvez ajouter davantage de données, de tables et d'autres fonctionnalités de MySQL pour enrichir votre base de données selon vos besoins.
+---
+
+Cet exercice vous permet de créer une base de données pour des bandes dessinées belges, de gérer les relations entre les tables "bd", "auteur" et "editeur", et d'effectuer des requêtes pour obtenir des informations spécifiques. Vous pouvez ajouter davantage de données, de tables et d'autres fonctionnalités de MySQL pour enrichir votre base de données selon vos besoins.

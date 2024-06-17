@@ -1,38 +1,89 @@
-Créer la base de données school_db
+# Exercice avec une Base de Données pour une École
 
-Utiliser la base de données
+Dans cet exercice, nous allons créer une base de données pour gérer des étudiants, des matières et des notes dans une école.
 
-Créer la table "student" avec id, nom, prenom, date_naissance, adresse, email
+## Étapes à Suivre
 
-Créer la table "subject" id, nom, description
+### 1. Créez la Base de Données `school_db`
 
-Créer la table "note" avec un
-id note et des clés étrangères pour student_id et subject_id
+```sql
+CREATE DATABASE school_db;
+```
 
-Insérez des données dans les tables :
+### 2. Utilisez la Base de Données `school_db`
 
--- Insertion des étudiants
+```sql
+USE school_db;
+```
 
-    ('Doe', 'John', '2000-01-01', '123 Main Street', 'john.doe@example.com'),
-    ('Smith', 'Emma', '1999-03-15', '456 Elm Street', 'emma.smith@example.com'),
-    ('Johnson', 'Michael', '2001-05-10', '789 Oak Street', 'michael.johnson@example.com'),
-    ('Brown', 'Olivia', '2002-07-20', '321 Pine Street', 'olivia.brown@example.com'),
-    ('Taylor', 'Sophia', '2003-09-25', '654 Maple Street', 'sophia.taylor@example.com'),
-    ('Anderson', 'Liam', '2000-12-05', '987 Cedar Street', 'liam.anderson@example.com'),
-    ('Clark', 'Ava', '1998-02-14', '741 Birch Street', 'ava.clark@example.com'),
-    ('Lewis', 'Noah', '1999-04-30', '852 Walnut Street', 'noah.lewis@example.com'),
-    ('Walker', 'Mia', '2001-06-08', '369 Oakwood Street', 'mia.walker@example.com'),
-    ('Hall', 'Elijah', '2002-08-16', '258 Cherry Street', 'elijah.hall@example.com');
+### 3. Créez la Table "student"
 
--- Insertion des matières
+```sql
+CREATE TABLE student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    date_naissance DATE,
+    adresse VARCHAR(100),
+    email VARCHAR(100)
+);
+```
 
-    ('Mathématiques', 'Calcul et algèbre'),
-    ('Sciences', 'Physique et chimie'),
-    ('Histoire', 'Événements historiques'),
-    ('Français', 'Grammaire et littérature'),
-    ('Anglais', 'Conversation et grammaire');
+### 4. Créez la Table "subject"
 
--- Insertion des notes pour chaque étudiant (exemples)
+```sql
+CREATE TABLE subject (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50),
+    description VARCHAR(100)
+);
+```
+
+### 5. Créez la Table "note"
+
+```sql
+CREATE TABLE note (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    matiere_id INT,
+    note FLOAT,
+    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (matiere_id) REFERENCES subject(id)
+);
+```
+
+### 6. Insérez des Données dans les Tables
+
+#### a. Insertion des Étudiants
+
+```sql
+INSERT INTO student (nom, prenom, date_naissance, adresse, email)
+VALUES
+('Doe', 'John', '2000-01-01', '123 Main Street', 'john.doe@example.com'),
+('Smith', 'Emma', '1999-03-15', '456 Elm Street', 'emma.smith@example.com'),
+('Johnson', 'Michael', '2001-05-10', '789 Oak Street', 'michael.johnson@example.com'),
+('Brown', 'Olivia', '2002-07-20', '321 Pine Street', 'olivia.brown@example.com'),
+('Taylor', 'Sophia', '2003-09-25', '654 Maple Street', 'sophia.taylor@example.com'),
+('Anderson', 'Liam', '2000-12-05', '987 Cedar Street', 'liam.anderson@example.com'),
+('Clark', 'Ava', '1998-02-14', '741 Birch Street', 'ava.clark@example.com'),
+('Lewis', 'Noah', '1999-04-30', '852 Walnut Street', 'noah.lewis@example.com'),
+('Walker', 'Mia', '2001-06-08', '369 Oakwood Street', 'mia.walker@example.com'),
+('Hall', 'Elijah', '2002-08-16', '258 Cherry Street', 'elijah.hall@example.com');
+```
+
+#### b. Insertion des Matières
+
+```sql
+INSERT INTO subject (nom, description)
+VALUES
+('Mathématiques', 'Calcul et algèbre'),
+('Sciences', 'Physique et chimie'),
+('Histoire', 'Événements historiques'),
+('Français', 'Grammaire et littérature'),
+('Anglais', 'Conversation et grammaire');
+```
+
+#### c. Insertion des Notes
 
     (1, 1, 15.5),
     (1, 2, 12.0),
@@ -82,8 +133,10 @@ N'hésitez pas à les adapter en fonction de votre base de données et de vos be
 
 ---
 
-<!-- ! ATTENTION C est aussi une requete! -->
+Cette requête sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10.
 
-Cette requête sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10. 
+
 
 ---
+
+
