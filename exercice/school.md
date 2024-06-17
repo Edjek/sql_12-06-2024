@@ -1,193 +1,212 @@
-Créer la base de données school_db
+# Exercice avec une Base de Données pour une École
 
-    CREATE DATABASE school_db;
+Dans cet exercice, nous allons créer une base de données pour gérer des étudiants, des matières et des notes dans une école.
 
-Utiliser la base de données
+## Étapes à Suivre
 
-    USE school_db;
+### 1. Créez la Base de Données `school_db`
 
-Créer la table "student"
+```sql
+CREATE DATABASE school_db;
+```
 
-    CREATE TABLE student (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nom VARCHAR(50),
-        prenom VARCHAR(50),
-        date_naissance DATE,
-        adresse VARCHAR(100),
-        email VARCHAR(100)
-    );
+### 2. Utilisez la Base de Données `school_db`
 
-Créer la table "subject"
+```sql
+USE school_db;
+```
 
-    CREATE TABLE subject (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nom VARCHAR(50),
-        description VARCHAR(100)
-    );
+### 3. Créez la Table "student"
 
-Créer la table "note"
+```sql
+CREATE TABLE student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    date_naissance DATE,
+    adresse VARCHAR(100),
+    email VARCHAR(100)
+);
+```
 
-    CREATE TABLE note (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        student_id INT,
-        matiere_id INT,
-        note FLOAT,
-        FOREIGN KEY (student_id) REFERENCES student(id),
-        FOREIGN KEY (matiere_id) REFERENCES subject(id)
-    );
+### 4. Créez la Table "subject"
 
-Insérez des données dans les tables :
+```sql
+CREATE TABLE subject (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50),
+    description VARCHAR(100)
+);
+```
 
--- Insertion des étudiants :
+### 5. Créez la Table "note"
 
-    INSERT INTO student (nom, prenom, date_naissance, adresse, email)
-    VALUES
-    ('Doe', 'John', '2000-01-01', '123 Main Street', 'john.doe@example.com'),
-    ('Smith', 'Emma', '1999-03-15', '456 Elm Street', 'emma.smith@example.com'),
-    ('Johnson', 'Michael', '2001-05-10', '789 Oak Street', 'michael.johnson@example.com'),
-    ('Brown', 'Olivia', '2002-07-20', '321 Pine Street', 'olivia.brown@example.com'),
-    ('Taylor', 'Sophia', '2003-09-25', '654 Maple Street', 'sophia.taylor@example.com'),
-    ('Anderson', 'Liam', '2000-12-05', '987 Cedar Street', 'liam.anderson@example.com'),
-    ('Clark', 'Ava', '1998-02-14', '741 Birch Street', 'ava.clark@example.com'),
-    ('Lewis', 'Noah', '1999-04-30', '852 Walnut Street', 'noah.lewis@example.com'),
-    ('Walker', 'Mia', '2001-06-08', '369 Oakwood Street', 'mia.walker@example.com'),
-    ('Hall', 'Elijah', '2002-08-16', '258 Cherry Street', 'elijah.hall@example.com');
+```sql
+CREATE TABLE note (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    matiere_id INT,
+    note FLOAT,
+    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (matiere_id) REFERENCES subject(id)
+);
+```
 
--- Insertion des matières :
+### 6. Insérez des Données dans les Tables
 
-    INSERT INTO subject (nom, description)
-    VALUES
-    ('Mathématiques', 'Calcul et algèbre'),
-    ('Sciences', 'Physique et chimie'),
-    ('Histoire', 'Événements historiques'),
-    ('Français', 'Grammaire et littérature'),
-    ('Anglais', 'Conversation et grammaire');
+#### a. Insertion des Étudiants
 
--- Insertion des notes pour chaque étudiant (exemples) :
+```sql
+INSERT INTO student (nom, prenom, date_naissance, adresse, email)
+VALUES
+('Doe', 'John', '2000-01-01', '123 Main Street', 'john.doe@example.com'),
+('Smith', 'Emma', '1999-03-15', '456 Elm Street', 'emma.smith@example.com'),
+('Johnson', 'Michael', '2001-05-10', '789 Oak Street', 'michael.johnson@example.com'),
+('Brown', 'Olivia', '2002-07-20', '321 Pine Street', 'olivia.brown@example.com'),
+('Taylor', 'Sophia', '2003-09-25', '654 Maple Street', 'sophia.taylor@example.com'),
+('Anderson', 'Liam', '2000-12-05', '987 Cedar Street', 'liam.anderson@example.com'),
+('Clark', 'Ava', '1998-02-14', '741 Birch Street', 'ava.clark@example.com'),
+('Lewis', 'Noah', '1999-04-30', '852 Walnut Street', 'noah.lewis@example.com'),
+('Walker', 'Mia', '2001-06-08', '369 Oakwood Street', 'mia.walker@example.com'),
+('Hall', 'Elijah', '2002-08-16', '258 Cherry Street', 'elijah.hall@example.com');
+```
 
-    INSERT INTO note (student_id, matiere_id, note)
-    VALUES
-    (1, 1, 15.5),
-    (1, 2, 12.0),
-    (2, 3, 14.5),
-    (2, 4, 16.0),
-    (3, 5, 13.5),
-    (3, 1, 17.0),
-    (4, 2, 13.0),
-    (4, 3, 11.5),
-    (5, 4, 18.0),
-    (5, 5, 16.5);
+#### b. Insertion des Matières
 
----
+```sql
+INSERT INTO subject (nom, description)
+VALUES
+('Mathématiques', 'Calcul et algèbre'),
+('Sciences', 'Physique et chimie'),
+('Histoire', 'Événements historiques'),
+('Français', 'Grammaire et littérature'),
+('Anglais', 'Conversation et grammaire');
+```
 
-Voici quelques exemples de requêtes SQL avec des conditions, des limites et du tri appliqués à la table "étudiant" :
+#### c. Insertion des Notes
 
-1.  Sélectionner tous les étudiants dont le nom est "Doe" :
-
-    ```sql
-    SELECT *
-    FROM student
-    WHERE nom = 'Doe';
-    ```
-
-2.  Sélectionner tous les étudiants âgés de moins de 20 ans :
-
-    ```sql
-    SELECT *
-    FROM student
-    WHERE date_naissance > DATE_SUB(CURDATE(), INTERVAL 20 YEAR);
-    ```
-
-3.  Sélectionner les 5 premiers étudiants dans l'ordre alphabétique des noms :
-
-    ```sql
-    SELECT *
-    FROM student
-    ORDER BY nom
-    LIMIT 5;
-    ```
-
-4.  Sélectionner les étudiants par ordre décroissant de leur date de naissance :
-
-    ```sql
-    SELECT *
-    FROM student
-    ORDER BY date_naissance DESC;
-    ```
-
-5.  Sélectionner les étudiants dont l'adresse contient le mot "Street" et limiter les résultats à 3 :
-
-    ```sql
-    SELECT *
-    FROM student
-    WHERE adresse LIKE '%Street%'
-    LIMIT 3;
-    ```
-
-6.  Sélectionner les étudiants dont le nom commence par "S" et trier les résultats par prenom :
-
-    ```sql
-    SELECT *
-    FROM student
-    WHERE nom LIKE 'S%'
-    ORDER BY prenom;
-    ```
-
-Ces exemples montrent comment appliquer des conditions, des limites et du tri dans vos requêtes SQL pour la table "student". N'hésitez pas à les ajuster en fonction de vos critères de recherche spécifiques.
+```sql
+INSERT INTO note (student_id, matiere_id, note)
+VALUES
+(1, 1, 15.5),
+(1, 2, 12.0),
+(2, 3, 14.5),
+(2, 4, 16.0),
+(3, 5, 13.5),
+(3, 1, 17.0),
+(4, 2, 13.0),
+(4, 3, 11.5),
+(5, 4, 18.0),
+(5, 5, 16.5);
+```
 
 ---
 
-Voici quelques exemples de requêtes SQL qui utilisent les fonctions MIN, MAX, COUNT, GROUP BY et HAVING :
+## Requêtes SQL
 
-1. Sélectionner la note minimale, maximale et le nombre total de notes pour chaque matière :
+### 1. Sélectionner Tous les Étudiants Dont le Nom est "Doe"
 
-    ```sql
-    SELECT matiere_id, MIN(note) AS note_minimale, MAX(note) AS note_maximale, COUNT(*) AS nombre_notes
-    FROM note
-    GROUP BY matiere_id;
-    ```
+```sql
+SELECT *
+FROM student
+WHERE nom = 'Doe';
+```
 
-2. Sélectionner les étudiants ayant une moyenne supérieure à 15 :
+### 2. Sélectionner Tous les Étudiants Âgés de Moins de 20 Ans
 
-    ```sql
-    SELECT student_id, AVG(note) AS moyenne
-    FROM note
-    GROUP BY student_id
-    HAVING AVG(note) > 15;
-    ```
+```sql
+SELECT *
+FROM student
+WHERE date_naissance > DATE_SUB(CURDATE(), INTERVAL 20 YEAR);
+```
 
-3. Sélectionner le nombre d'étudiants ayant obtenu une note supérieure à 16 dans chaque matière :
+### 3. Sélectionner les 5 Premiers Étudiants dans l'Ordre Alphabétique des Noms
 
-    ```sql
-    SELECT matiere_id, COUNT(*) AS nombre_etudiants
-    FROM note
-    WHERE note > 16
-    GROUP BY matiere_id;
-    ```
+```sql
+SELECT *
+FROM student
+ORDER BY nom
+LIMIT 5;
+```
 
-4. Sélectionner les matières ayant au moins cinq étudiants :
+### 4. Sélectionner les Étudiants par Ordre Décroissant de Leur Date de Naissance
 
-    ```sql
-    SELECT matiere_id, COUNT(*) AS nombre_etudiants
-    FROM note
-    GROUP BY matiere_id
-    HAVING COUNT(*) >= 5;
-    ```
+```sql
+SELECT *
+FROM student
+ORDER BY date_naissance DESC;
+```
 
-5. Sélectionner les étudiants ayant obtenu une note maximale dans chaque matière :
+### 5. Sélectionner les Étudiants Dont l'Adresse Contient le Mot "Street" et Limiter les Résultats à 3
 
-    ```sql
-    SELECT matiere_id, student_id, MAX(note) AS note_maximale
-    FROM note
-    GROUP BY matiere_id;
-    ```
+```sql
+SELECT *
+FROM student
+WHERE adresse LIKE '%Street%'
+LIMIT 3;
+```
 
-Ces exemples illustrent l'utilisation des fonctions MIN, MAX, COUNT, GROUP BY et HAVING pour effectuer des calculs et filtrer les données en fonction de certaines conditions.
-N'hésitez pas à les adapter en fonction de votre base de données et de vos besoins spécifiques.
+### 6. Sélectionner les Étudiants Dont le Nom Commence par "S" et Trier les Résultats par Prénom
+
+```sql
+SELECT *
+FROM student
+WHERE nom LIKE 'S%'
+ORDER BY prenom;
+```
 
 ---
 
-Requête qui sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10.
+## Requêtes Avancées
+
+### 1. Sélectionner la Note Minimale, Maximale et le Nombre Total de Notes pour Chaque Matière
+
+```sql
+SELECT matiere_id, MIN(note) AS note_minimale, MAX(note) AS note_maximale, COUNT(*) AS nombre_notes
+FROM note
+GROUP BY matiere_id;
+```
+
+### 2. Sélectionner les Étudiants Ayant une Moyenne Supérieure à 15
+
+```sql
+SELECT student_id, AVG(note) AS moyenne
+FROM note
+GROUP BY student_id
+HAVING AVG(note) > 15;
+```
+
+### 3. Sélectionner le Nombre d'Étudiants Ayant Obtenu une Note Supérieure à 16 dans Chaque Matière
+
+```sql
+SELECT matiere_id, COUNT(*) AS nombre_etudiants
+FROM note
+WHERE note > 16
+GROUP BY matiere_id;
+```
+
+### 4. Sélectionner les Matières Ayant au Moins Cinq Étudiants
+
+```sql
+SELECT matiere_id, COUNT(*) AS nombre_etudiants
+FROM note
+GROUP BY matiere_id
+HAVING COUNT(*) >= 5;
+```
+
+### 5. Sélectionner les Étudiants Ayant Obtenu une Note Maximale dans Chaque Matière
+
+```sql
+SELECT matiere_id, student_id, MAX(note) AS note_maximale
+FROM note
+GROUP BY matiere_id;
+```
+
+---
+
+## Requête Complexe
+
+### Sélectionner les Noms d'Étudiants Dont la Date de Naissance est Postérieure au 1er Janvier 2000, Groupe les Résultats par Nom, Filtre les Groupes Ayant Plus de 2 Étudiants, Trie les Résultats par Nom et Limite les Résultats à 10
 
 ```sql
 SELECT nom, COUNT(*) AS nombre
@@ -199,18 +218,20 @@ ORDER BY nom
 LIMIT 10;
 ```
 
----
-
-Requête SQL qui sélectionne le nom, le prenom, le nom de la matière et la note maximale pour chaque étudiant dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom d'étudiant, filtre les groupes ayant une note maximale supérieure :
+### Sélectionner le Nom, le Prénom, le Nom de la Matière et la Note Maximale pour Chaque Étudiant Dont la Date de Naissance est Postérieure au 1er Janvier 2000, Groupe les Résultats par Nom d'Étudiant, Filtre les Groupes Ayant une Note Maximale Supérieure à 2
 
 ```sql
-SELECT student.nom, prenom, subject.nom, MAX(note) AS 'note maximal'
+SELECT student.nom, student.prenom, subject.nom, MAX(note) AS 'note_maximale'
 FROM student
-JOIN note ON student.id = note.étudiant_id
+JOIN note ON student.id = note.student_id
 JOIN subject ON note.matiere_id = subject.id
 WHERE student.date_naissance > '2000-01-01'
 GROUP BY student.nom
-HAVING Max(note) > 2
+HAVING MAX(note) > 2
 ORDER BY student.nom
 LIMIT 10;
 ```
+
+---
+
+Ces exemples montrent comment appliquer des conditions, des limites et du tri dans vos requêtes SQL pour la table `student`, ainsi que l'utilisation de fonctions d'agrégation telles que `MIN`, `MAX`, `COUNT`, `GROUP BY` et `HAVING`. N'hésitez pas à les ajuster en fonction de vos critères de recherche spécifiques et à explorer d'autres fonctionnalités de MySQL pour enrichir vos requêtes.
