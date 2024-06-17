@@ -85,58 +85,153 @@ VALUES
 
 #### c. Insertion des Notes
 
-    (1, 1, 15.5),
-    (1, 2, 12.0),
-    (2, 3, 14.5),
-    (2, 4, 16.0),
-    (3, 5, 13.5),
-    (3, 1, 17.0),
-    (4, 2, 13.0),
-    (4, 3, 11.5),
-    (5, 4, 18.0),
-    (5, 5, 16.5);
+```sql
+INSERT INTO note (student_id, matiere_id, note)
+VALUES
+(1, 1, 15.5),
+(1, 2, 12.0),
+(2, 3, 14.5),
+(2, 4, 16.0),
+(3, 5, 13.5),
+(3, 1, 17.0),
+(4, 2, 13.0),
+(4, 3, 11.5),
+(5, 4, 18.0),
+(5, 5, 16.5);
+```
 
 ---
 
-Voici quelques exemples de requêtes SQL avec des conditions, des limites et du tri appliqués à la table "étudiant" :
+## Requêtes SQL
 
-1. Sélectionner tous les étudiants dont le nom est "Doe" :
+### 1. Sélectionner Tous les Étudiants Dont le Nom est "Doe"
 
-2. Sélectionner tous les étudiants âgés de moins de 20 ans :
+```sql
+SELECT *
+FROM student
+WHERE nom = 'Doe';
+```
 
-3. Sélectionner les 5 premiers étudiants dans l'ordre alphabétique des noms :
+### 2. Sélectionner Tous les Étudiants Âgés de Moins de 20 Ans
 
-4. Sélectionner les étudiants par ordre décroissant de leur date de naissance :
+```sql
+SELECT *
+FROM student
+WHERE date_naissance > DATE_SUB(CURDATE(), INTERVAL 20 YEAR);
+```
 
-5. Sélectionner les étudiants dont l'adresse contient le mot "Street" et limiter les résultats à 3 :
+### 3. Sélectionner les 5 Premiers Étudiants dans l'Ordre Alphabétique des Noms
 
-6. Sélectionner les étudiants dont le nom commence par "S" et trier les résultats par prénom :
+```sql
+SELECT *
+FROM student
+ORDER BY nom
+LIMIT 5;
+```
 
-Ces exemples montrent comment appliquer des conditions, des limites et du tri dans vos requêtes SQL pour la table "student". N'hésitez pas à les ajuster en fonction de vos critères de recherche spécifiques.
+### 4. Sélectionner les Étudiants par Ordre Décroissant de Leur Date de Naissance
+
+```sql
+SELECT *
+FROM student
+ORDER BY date_naissance DESC;
+```
+
+### 5. Sélectionner les Étudiants Dont l'Adresse Contient le Mot "Street" et Limiter les Résultats à 3
+
+```sql
+SELECT *
+FROM student
+WHERE adresse LIKE '%Street%'
+LIMIT 3;
+```
+
+### 6. Sélectionner les Étudiants Dont le Nom Commence par "S" et Trier les Résultats par Prénom
+
+```sql
+SELECT *
+FROM student
+WHERE nom LIKE 'S%'
+ORDER BY prenom;
+```
 
 ---
 
-Voici quelques exemples de requêtes SQL qui utilisent les fonctions MIN, MAX, COUNT, GROUP BY et HAVING :
+## Requêtes Avancées
 
-1. Sélectionner la note minimale, maximale et le nombre total de notes pour chaque matière :
+### 1. Sélectionner la Note Minimale, Maximale et le Nombre Total de Notes pour Chaque Matière
 
-2. Sélectionner les étudiants ayant une moyenne supérieure à 15 :
+```sql
+SELECT matiere_id, MIN(note) AS note_minimale, MAX(note) AS note_maximale, COUNT(*) AS nombre_notes
+FROM note
+GROUP BY matiere_id;
+```
 
-3. Sélectionner le nombre d'étudiants ayant obtenu une note supérieure à 16 dans chaque matière :
+### 2. Sélectionner les Étudiants Ayant une Moyenne Supérieure à 15
 
-4. Sélectionner les matières ayant au moins cinq étudiants :
+```sql
+SELECT student_id, AVG(note) AS moyenne
+FROM note
+GROUP BY student_id
+HAVING AVG(note) > 15;
+```
 
-5. Sélectionner les étudiants ayant obtenu une note maximale dans chaque matière :
+### 3. Sélectionner le Nombre d'Étudiants Ayant Obtenu une Note Supérieure à 16 dans Chaque Matière
 
-Ces exemples illustrent l'utilisation des fonctions MIN, MAX, COUNT, GROUP BY et HAVING pour effectuer des calculs et filtrer les données en fonction de certaines conditions.
-N'hésitez pas à les adapter en fonction de votre base de données et de vos besoins spécifiques.
+```sql
+SELECT matiere_id, COUNT(*) AS nombre_etudiants
+FROM note
+WHERE note > 16
+GROUP BY matiere_id;
+```
+
+### 4. Sélectionner les Matières Ayant au Moins Cinq Étudiants
+
+```sql
+SELECT matiere_id, COUNT(*) AS nombre_etudiants
+FROM note
+GROUP BY matiere_id
+HAVING COUNT(*) >= 5;
+```
+
+### 5. Sélectionner les Étudiants Ayant Obtenu une Note Maximale dans Chaque Matière
+
+```sql
+SELECT matiere_id, student_id, MAX(note) AS note_maximale
+FROM note
+GROUP BY matiere_id;
+```
 
 ---
 
-Cette requête sélectionne les noms d'étudiants dont la date de naissance est postérieure au 1er janvier 2000, groupe les résultats par nom, filtre les groupes ayant plus de 2 étudiants, trie les résultats par nom et limite les résultats à 10.
+## Requête Complexe
 
+### Sélectionner le nombre d'Étudiants Dont la Date de Naissance est Postérieure au 1er Janvier 2000, Groupe les Résultats par matière, Filtre les Groupes Ayant Plus de 2 Étudiants, Trie les Résultats par Nom de matiere et Limite les Résultats à 10
 
+```sql
+SELECT nom, COUNT(*) AS nombre
+FROM student
+WHERE date_naissance > '2000-01-01'
+GROUP BY nom
+HAVING COUNT(*) > 2
+ORDER BY nom
+LIMIT 10;
+```
+
+### Sélectionner le Nom, le Prénom, le Nom de la Matière et la Note Maximale pour Chaque Étudiant Dont la Date de Naissance est Postérieure au 1er Janvier 2000, Groupe les Résultats par Nom d'Étudiant, Filtre les Groupes Ayant une Note Maximale Supérieure à 2
+
+```sql
+SELECT student.nom, student.prenom, subject.nom, MAX(note) AS 'note_maximale'
+FROM student
+JOIN note ON student.id = note.student_id
+JOIN subject ON note.matiere_id = subject.id
+WHERE student.date_naissance > '2000-01-01'
+GROUP BY student.nom
+HAVING MAX(note) > 2
+ORDER BY student.nom
+LIMIT 10;
+```
 
 ---
 
-
+Ces exemples montrent comment appliquer des conditions, des limites et du tri dans vos requêtes SQL pour la table `student`, ainsi que l'utilisation de fonctions d'agrégation telles que `MIN`, `MAX`, `COUNT`, `GROUP BY` et `HAVING`. N'hésitez pas à les ajuster en fonction de vos critères de recherche spécifiques et à explorer d'autres fonctionnalités de MySQL pour enrichir vos requêtes.
