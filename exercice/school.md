@@ -206,7 +206,7 @@ GROUP BY matiere_id;
 
 ## Requête Complexe
 
-### Sélectionner les Noms d'Étudiants Dont la Date de Naissance est Postérieure au 1er Janvier 2000, Groupe les Résultats par Nom, Filtre les Groupes Ayant Plus de 2 Étudiants, Trie les Résultats par Nom et Limite les Résultats à 10
+### Sélectionner le nombre d'Étudiants Dont la Date de Naissance est Postérieure au 1er Janvier 2000, Groupe les Résultats par matière, Filtre les Groupes Ayant Plus de 2 Étudiants, Trie les Résultats par Nom de matiere et Limite les Résultats à 10
 
 ```sql
 SELECT nom, COUNT(*) AS nombre
