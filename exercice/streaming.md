@@ -145,134 +145,141 @@ USE anime_streaming_db;
 
 ### 3. Création de la Table "Animes"
 
--   Créez une table "Animes" avec les colonnes suivantes :
-    -   id_anime (Clé primaire)
-    -   titre
-    -   studio_production
-    -   année_sortie
-    -   genre
-    -   description
-    -   note
-
 ```sql
-CREATE TABLE animes (
-    id_anime INT PRIMARY KEY,
-    titre VARCHAR(100),
-    studio_production VARCHAR(100),
-    annee_sortie INT,
-    genre VARCHAR(50),
+CREATE TABLE anime (
+    id_anime INT PRIMARY KEY AUTO_INCREMENT,
+    titre VARCHAR(255),
+    studio_production VARCHAR(255),
+    annee_sortie INT(4),
+    genre VARCHAR(255),
     description TEXT,
-    note FLOAT
+    note DECIMAL(3, 1)
 );
 ```
 
 ### 4. Création de la Table "Épisodes"
 
--   Créez une table "Épisodes" avec les colonnes suivantes :
-    -   id_episode (Clé primaire)
-    -   id_anime (Clé étrangère référençant la table "Animes")
-    -   numéro_episode INT
-    -   titre_episode VARCHAR(100)
-    -   durée INT
-    -   date_sortie DATE
-
 ```sql
-CREATE TABLE episodes (
-    id_episode INT PRIMARY KEY,
+CREATE TABLE episode (
+    id_episode INT PRIMARY KEY AUTO_INCREMENT,
     id_anime INT,
     numero_episode INT,
-    titre_episode VARCHAR(100),
-    duree INT,
+    titre_episode VARCHAR(255),
+    duree INT(4),
     date_sortie DATE,
-    FOREIGN KEY (id_anime) REFERENCES animes(id_anime)
+    FOREIGN KEY (id_anime) REFERENCES anime (id_anime)
 );
 ```
 
 ### 5. Création de la Table "Utilisateurs"
 
--   Créez une table "Utilisateurs" avec les colonnes suivantes :
-    -   id_utilisateur (Clé primaire)
-    -   nom_utilisateur VARCHAR(50)
-    -   email VARCHAR(100)
-    -   mot_de_passe VARCHAR(100)
-
 ```sql
-CREATE TABLE utilisateurs (
-    id_utilisateur INT PRIMARY KEY,
-    nom_utilisateur VARCHAR(50),
-    email VARCHAR(100),
-    mot_de_passe VARCHAR(100)
+CREATE TABLE utilisateur (
+    id_utilisateur INT PRIMARY KEY AUTO_INCREMENT,
+    nom_utilisateur VARCHAR(255),
+    email VARCHAR(255),
+    mot_de_passe VARCHAR(255)
 );
 ```
 
 ### 6. Création de la Table "Liste_de_lecture"
 
--   Créez une table "Liste_de_lecture" avec les colonnes suivantes :
-    -   id_liste (Clé primaire)
-    -   id_utilisateur (Clé étrangère référençant la table "Utilisateurs")
-    -   id_anime (Clé étrangère référençant la table "Animes")
-    -   progression FLOAT
-
 ```sql
 CREATE TABLE liste_de_lecture (
-    id_liste INT PRIMARY KEY,
+    id_liste INT PRIMARY KEY AUTO_INCREMENT,
     id_utilisateur INT,
     id_anime INT,
-    progression FLOAT,
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
-    FOREIGN KEY (id_anime) REFERENCES animes(id_anime)
+    progression INT,
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    FOREIGN KEY (id_anime) REFERENCES anime(id_anime)
 );
 ```
 
 ### 7. Création de la Table "Commentaires"
 
--   Créez une table "Commentaires" avec les colonnes suivantes :
-    -   id_commentaire (Clé primaire)
-    -   id_utilisateur (Clé étrangère référençant la table "Utilisateurs")
-    -   id_anime (Clé étrangère référençant la table "Animes")
-    -   contenu TEXT
-    -   date_commentaire DATE
-
 ```sql
-CREATE TABLE commentaires (
-    id_commentaire INT PRIMARY KEY,
+CREATE TABLE commentaire (
+    id_commentaire INT PRIMARY KEY AUTO_INCREMENT,
     id_utilisateur INT,
     id_anime INT,
     contenu TEXT,
     date_commentaire DATE,
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
-    FOREIGN KEY (id_anime) REFERENCES animes(id_anime)
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    FOREIGN KEY (id_anime) REFERENCES anime (id_anime)
 );
 ```
 
 ### 8. Insertion de Données
 
--   Insérez des données dans la table "Animes".
--   Insérez des données dans la table "Épisodes".
--   Insérez des données dans la table "Utilisateurs".
+-   Insérez des données dans la table "Anime".
+
+```sql
+INSERT INTO anime (titre, studio_production, annee_sortie, genre, description, note) VALUES
+('Naruto', 'Studio Pierrot', 2002, 'Action', 'Un ninja adolescent cherche à devenir Hokage.', 8.5),
+('One Piece', 'Toei Animation', 1999, 'Aventure', 'Un garçon au chapeau de paille veut devenir le roi des pirates.', 9.0),
+('Attack on Titan', 'Wit Studio', 2013, 'Action', 'Des humains combattent des géants mangeurs d\'hommes.', 8.8);
+```
+
+-   Insérez des données dans la table "Episode".
+
+```sql
+INSERT INTO episode (id_anime, numero_episode, titre_episode, duree, date_sortie) VALUES
+(1, 1, 'Enter: Naruto Uzumaki!', 23, '2002-10-03'),
+(1, 2, 'My Name is Konohamaru!', 23, '2002-10-10'),
+(2, 1, 'I\'m Luffy! The Man Who\'s Gonna Be King of the Pirates!', 25, '1999-10-20'),
+(2, 2, 'Enter the Great Swordsman! Pirate Hunter Roronoa Zoro!', 25, '1999-11-17'),
+(3, 1, 'To You, in 2000 Years: The Fall of Shiganshina, Part 1', 24, '2013-04-07'),
+(3, 2, 'That Day: The Fall of Shiganshina, Part 2', 24, '2013-04-14');
+```
+
+-   Insérez des données dans la table "Utilisateur".
+
+    ```sql
+    INSERT INTO utilisateur (nom_utilisateur, email, mot_de_passe) VALUES
+    ('johndoe', 'johndoe@example.com', 'password123'),
+    ('janedoe', 'janedoe@example.com', 'password123'),
+    ('animefan', 'animefan@example.com', 'password123');
+    ```
+
 -   Insérez des données dans la table "Liste_de_lecture".
--   Insérez des données dans la table "Commentaires".
+
+    ```sql
+    INSERT INTO liste_de_lecture (id_utilisateur, id_anime, progression) VALUES
+    (1, 1, 5),
+    (1, 2, 10),
+    (2, 3, 12),
+    (3, 1, 3);
+    ```
+
+-   Insérez des données dans la table "Commentaire".
+
+    ```sql
+    INSERT INTO commentaire (id_utilisateur, id_anime, contenu, date_commentaire) VALUES
+    (1, 1, 'Amazing first episode!', '2023-01-15'),
+    (2, 2, 'Can\'t wait for the next episode!', '2023-01-20'),
+    (3, 3, 'This anime is so intense!', '2023-01-25');
+    ```
 
 ### 9. Requêtes SQL
 
 -   Affichez tous les enregistrements de la table "Animes".
 
 ```sql
-SELECT * FROM animes;
+SELECT * FROM anime;
 ```
 
 -   Affichez les titres des animes qui appartiennent au genre "Action".
 
 ```sql
-SELECT titre FROM animes WHERE genre = 'Action';
+SELECT titre FROM anime WHERE genre = 'Action';
 ```
 
 -   Affichez le nombre total d'épisodes pour chaque anime.
 
 ```sql
 SELECT a.titre, COUNT(e.id_episode) AS nombre_episodes
-FROM animes a
-INNER JOIN episodes e ON a.id_anime = e.id_anime
+FROM anime a
+INNER JOIN episode e ON a.id_anime = e.id_anime
 GROUP BY a.titre;
 ```
 
@@ -280,18 +287,18 @@ GROUP BY a.titre;
 
 ```sql
 SELECT u.nom_utilisateur, a.titre
-FROM utilisateurs u
-INNER JOIN liste_de_lecture l ON u.id_utilisateur = l.id_utilisateur
-INNER JOIN animes a ON l.id_anime = a.id_anime;
+FROM utilisateur u
+LEFT JOIN liste_de_lecture l ON u.id_utilisateur = l.id_utilisateur
+LEFT JOIN anime a ON l.id_anime = a.id_anime;
 ```
 
 -   Affichez les commentaires pour chaque anime avec le nom de l'utilisateur et la date du commentaire.
 
 ```sql
 SELECT a.titre, u.nom_utilisateur, c.contenu, c.date_commentaire
-FROM commentaires c
-INNER JOIN utilisateurs u ON c.id_utilisateur = u.id_utilisateur
-INNER JOIN animes a ON c.id_anime = a.id_anime;
+FROM commentaire c
+JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
+JOIN anime a ON c.id_anime = a.id_anime;
 ```
 
 ### Requêtes Supplémentaires
@@ -300,7 +307,7 @@ INNER JOIN animes a ON c.id_anime = a.id_anime;
 
 ```sql
 SELECT titre, AVG(note) AS note_moyenne
-FROM animes
+FROM anime
 GROUP BY titre
 HAVING AVG(note) > 8
 ORDER BY note_moyenne DESC
@@ -311,7 +318,7 @@ LIMIT 5;
 
 ```sql
 SELECT u.nom_utilisateur, COUNT(l.id_anime) AS nombre_animes
-FROM utilisateurs u
+FROM utilisateur u
 INNER JOIN liste_de_lecture l ON u.id_utilisateur = l.id_utilisateur
 GROUP BY u.nom_utilisateur
 ORDER BY nombre_animes DESC;
@@ -321,8 +328,8 @@ ORDER BY nombre_animes DESC;
 
 ```sql
 SELECT a.titre, e.titre_episode, e.duree
-FROM episodes e
-INNER JOIN animes a ON e.id_anime = a.id_anime
+FROM episode e
+INNER JOIN anime a ON e.id_anime = a.id_anime
 ORDER BY e.duree DESC
 LIMIT 3;
 ```
@@ -342,9 +349,9 @@ ORDER BY nombre_commentaires DESC;
 
 ```sql
 SELECT a.titre, COUNT(e.id_episode) AS nombre_episodes
-FROM animes a
-INNER JOIN episodes e ON a.id_anime = e.id_anime
-WHERE e.date_sortie > '2020-01-01'
+FROM anime a
+INNER JOIN episode e ON a.id_anime = e.id_anime
+WHERE e.date_sortie > '2000-01-01'
 GROUP BY a.titre
 ORDER BY nombre_episodes DESC;
 ```
