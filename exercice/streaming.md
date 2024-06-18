@@ -330,7 +330,7 @@ ORDER BY nombre_animes DESC;
 SELECT a.titre, e.titre_episode, e.duree
 FROM episode e
 INNER JOIN anime a ON e.id_anime = a.id_anime
-ORDER BY e.duree DESC
+ORDER BY e.duree DESC, date_sortie DESC
 LIMIT 3;
 ```
 
