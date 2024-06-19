@@ -43,10 +43,10 @@ Dans cet exercice, nous allons créer une base de données pour gérer des artis
 
 #### e. Table "playlist"
 
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    utilisateur_id INT,
-    nom VARCHAR(100),
-    date_creation DATE,
+    id,
+    utilisateur_id,
+    nom,
+    date_creation,
     utilisateur_id CLE ETRANGERE user
 
 #### f. Table "playlist_song"
